@@ -79,7 +79,7 @@ public class ChallengeUser extends AbstractUser<ChallengesPlugin> {
 
     public boolean isTimeForNewChallenges(@NotNull ChallengeCategory type) {
         long deadline = this.getRefreshTime(type);
-        return System.currentTimeMillis() > deadline;// && this.getChallenges(type).stream().allMatch(chal -> chal.getDateCreated() < deadline);
+        return System.currentTimeMillis() > deadline;
     }
 
     public double getProgressPercent(@NotNull ChallengeCategory type) {
@@ -89,11 +89,7 @@ public class ChallengeUser extends AbstractUser<ChallengesPlugin> {
     }
 
     public void removeInvalidChallenges() {
-        this.getChallengesMap().values().forEach(challenges -> {
-            //if (plugin.getChallengeManager().getTemplate(challenge.getTemplateId()) == null) return true;
-            //if (plugin.getChallengeManager().getGenerator(challenge.getGeneratorId()) == null) return true;
-            challenges.removeIf(Objects::isNull);
-        });
+        this.getChallengesMap().values().forEach(challenges -> challenges.removeIf(Objects::isNull));
     }
 
     @NotNull
@@ -142,11 +138,6 @@ public class ChallengeUser extends AbstractUser<ChallengesPlugin> {
     public Map<String, Set<Integer>> getCompletedMilestonesMap() {
         return this.completedMilestones;
     }
-
-    /*@NotNull
-    public Map<String, Integer> getCompletedChallenges(@NotNull ChallengeActionType<?, ?> type) {
-        return this.getCompletedChallenges(type.getName());
-    }*/
 
     @NotNull
     public Map<String, Integer> getCompletedChallenges(@NotNull ChallengeCategory category) {

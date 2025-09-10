@@ -67,7 +67,6 @@ public class Creator<O> {
         File file = new File(plugin.getDataFolder() + Config.DIR_GENERATORS + this.getActionType().getName(), this.name + ".yml");
         if (file.exists()) return null;
 
-        //FileConfig cfg = new FileConfig(file);
         Generator generator = new Generator(plugin, file);
         generator.setType(this.actionType);
         generator.getObjectiveList().getObjectMap().putAll(this.objectives.getObjectMap());

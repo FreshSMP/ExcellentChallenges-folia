@@ -28,18 +28,6 @@ public class EnchantmentCreator extends AbstractCreator<Enchantment> {
         this.createGetRemoveEnchantGenerators();
     }
 
-    /*@NotNull
-    @Override
-    public ItemStack getIcon(@NotNull Enchantment object) {
-        return new ItemStack(Material.ENCHANTED_BOOK);
-    }
-
-    @NotNull
-    @Override
-    public List<String> getNames(@NotNull ActionType<?, Enchantment> actionType) {
-        return new ArrayList<>();
-    }*/
-
     @NotNull
     @Override
     public Set<String> getConditions(@NotNull ActionType<?, Enchantment> actionType) {

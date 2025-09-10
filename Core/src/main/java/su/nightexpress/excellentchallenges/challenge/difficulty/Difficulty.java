@@ -19,17 +19,14 @@ public class Difficulty {
 
     private final String id;
     private final String name;
-    //@Deprecated private final String nameFormat;
     private final UniInt levels;
     private final Map<String, DifficultyModifier> modifiers;
 
     public Difficulty(@NotNull String id, @NotNull String name,
-                      //@NotNull String nameFormat,
                       @NotNull UniInt levels,
                       @NotNull Map<String, DifficultyModifier> modifiers) {
         this.id = id.toLowerCase();
         this.name = name;
-        //this.nameFormat = Colorizer.apply(nameFormat);
         this.levels = levels;
         this.modifiers = modifiers;
     }
@@ -37,7 +34,6 @@ public class Difficulty {
     @NotNull
     public static Difficulty read(@NotNull FileConfig cfg, @NotNull String path, @NotNull String id) {
         String name = cfg.getString(path + ".Name", StringUtil.capitalizeUnderscored(id));
-        //String nameFormat = cfg.getString(path + ".Challenge_Name_Format", Placeholders.CHALLENGE_NAME);
         UniInt levels = UniInt.read(cfg, path + ".Levels");
         Map<String, DifficultyModifier> modifiers = new HashMap<>();
         for (String modId : cfg.getSection(path + ".Modifiers")) {
@@ -50,19 +46,11 @@ public class Difficulty {
 
     public void write(@NotNull FileConfig cfg, @NotNull String path) {
         cfg.set(path + ".Name", this.getName());
-        //cfg.set(path + ".Challenge_Name_Format", this.getNameFormat());
         this.getLevels().write(cfg, path + ".Levels");
 
         cfg.remove(path + ".Modifiers");
-        this.getModifiers().forEach((id, modifier) -> {
-            modifier.write(cfg, path + ".Modifiers." + id);
-        });
+        this.getModifiers().forEach((id, modifier) -> modifier.write(cfg, path + ".Modifiers." + id));
     }
-
-    /*@NotNull
-    public String formatChallengeName(@NotNull GeneratedChallenge challenge) {
-        return this.getNameFormat().replace(Placeholders.CHALLENGE_NAME, challenge.getName());
-    }*/
 
     public int createLevel() {
         return this.getLevels().roll();
@@ -82,12 +70,6 @@ public class Difficulty {
     public String getName() {
         return name;
     }
-
-    /*@NotNull
-    @Deprecated
-    public String getNameFormat() {
-        return nameFormat;
-    }*/
 
     @NotNull
     public UniInt getLevels() {

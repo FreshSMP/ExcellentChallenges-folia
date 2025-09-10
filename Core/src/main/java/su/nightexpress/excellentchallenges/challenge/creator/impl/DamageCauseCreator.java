@@ -29,33 +29,6 @@ public class DamageCauseCreator extends AbstractCreator<DamageCause> {
         this.createDamageReceiveGenerators();
     }
 
-    /*@NotNull
-    @Override
-    public ItemStack getIcon(@NotNull DamageCause object) {
-        Material material = switch (object) {
-            case CONTACT -> Material.CACTUS;
-            case ENTITY_EXPLOSION, BLOCK_EXPLOSION -> Material.TNT;
-            case PROJECTILE -> Material.ARROW;
-            case SUFFOCATION -> Material.SAND;
-            case FIRE, FIRE_TICK -> Material.FLINT_AND_STEEL;
-            case LAVA -> Material.LAVA_BUCKET;
-            case DROWNING -> Material.WATER_BUCKET;
-            case STARVATION -> Material.ROTTEN_FLESH;
-            case POISON -> Material.SPIDER_EYE;
-            case MAGIC -> Material.FERMENTED_SPIDER_EYE;
-            case WITHER -> Material.WITHER_ROSE;
-            default -> Material.IRON_SWORD;
-        };
-
-        return new ItemStack(material);
-    }
-
-    @NotNull
-    @Override
-    public List<String> getNames(@NotNull ActionType<?, DamageCause> actionType) {
-        return new ArrayList<>();
-    }*/
-
     @NotNull
     @Override
     public Set<String> getConditions(@NotNull ActionType<?, DamageCause> actionType) {

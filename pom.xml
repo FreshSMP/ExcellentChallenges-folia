@@ -61,13 +61,15 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.10.10</version>
+            <version>2.11.6</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>su.nightexpress.nightcore</groupId>
-            <artifactId>nightcore</artifactId>
-            <version>2.7.5</version>
+            <artifactId>main</artifactId>
+            <version>2.7.16</version>
+            <classifier>shaded</classifier>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

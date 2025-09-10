@@ -59,38 +59,11 @@ public class ConditionConfig implements Placeholder {
         return new ConditionConfig(id, name, description, conditionMap);
     }
 
-    /*@Override
-    public boolean load() {
-        this.name = Colorizer.apply(cfg.getString("Name", StringUtil.capitalizeUnderscored(this.getId())));
-        this.description = Colorizer.apply(cfg.getStringList("Description"));
-
-        for (String sId : cfg.getSection("Conditions")) {
-            List<Pair<Condition<?, ?>, String>> conditions = new ArrayList<>();
-
-            List<String> list = cfg.getStringList("Conditions." + sId);
-            for (String raw : list) {
-                String conditionName = raw.split(" ")[0].replace("[", "").replace("]", "");
-                Condition<?, ?> condition = Conditions.getByName(conditionName);
-                if (condition == null) {
-                    plugin.error("Invalid condition: " + conditionName);
-                    continue;
-                }
-
-                conditions.add(Pair.of(condition, raw));
-            }
-            this.conditionMap.put(sId.toLowerCase(), conditions);
-        }
-
-        return true;
-    }*/
-
     public void write(@NotNull FileConfig cfg, @NotNull String path) {
         cfg.set(path + ".Name", this.getName());
         cfg.set(path + ".Description", this.getDescription());
         cfg.remove(path + ".Conditions");
-        this.getConditionMap().forEach((id, list) -> {
-            cfg.set(path + ".Conditions." + id, list.stream().map(Pair::getSecond).toList());
-        });
+        this.getConditionMap().forEach((id, list) -> cfg.set(path + ".Conditions." + id, list.stream().map(Pair::getSecond).toList()));
     }
 
     @Override

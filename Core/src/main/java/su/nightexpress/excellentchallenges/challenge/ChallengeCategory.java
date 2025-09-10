@@ -126,14 +126,6 @@ public class ChallengeCategory implements Placeholder {
             "Players will get specific rewards upon completion specific amount of challenges of this type."
         ).read(cfg);
 
-//        cfg.getSection(path + ".Milestones").forEach(sId -> {
-//            int milestone = NumberUtil.getInteger(sId);
-//            if (milestone <= 0) return;
-//
-//            ChallengeMilestone mile = ChallengeMilestone.read(cfg, path + ".Milestones." + sId, milestone);
-//            milestones.put(milestone, mile);
-//        });
-
         return new ChallengeCategory(id, name, icon, commandAliases, refreshTime, uniqueTypes, difficulties, amountPerRank, excludedGenerators, completionRewards, milestones);
     }
 
@@ -144,9 +136,7 @@ public class ChallengeCategory implements Placeholder {
         config.set(path + ".Refresh_Time", this.getRefreshTime());
         config.set(path + ".Unique_Types", this.isUniqueTypes());
         config.remove(path + ".Difficulties");
-        this.getDifficulties().forEach((sId, chance) -> {
-            config.set(path + ".Difficulties." + sId, chance);
-        });
+        this.getDifficulties().forEach((sId, chance) -> config.set(path + ".Difficulties." + sId, chance));
         config.remove(path + ".Amount_Per_Rank");
         this.getAmountPerRank().write(config, path + ".Amount_Per_Rank");
         config.set(path + ".Excluded_Generators", this.getExcludedGenerators());

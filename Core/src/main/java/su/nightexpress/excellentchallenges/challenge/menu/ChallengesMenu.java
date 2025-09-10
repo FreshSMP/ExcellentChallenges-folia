@@ -62,41 +62,31 @@ public class ChallengesMenu extends ConfigMenu<ChallengesPlugin> implements Auto
         super(plugin, new FileConfig(plugin.getDataFolder() + Config.DIR_MENU, FILE));
         this.viewLink = new ViewLink<>();
 
-        this.addHandler(this.returnHandler = ItemHandler.forReturn(this, (viewer, event) -> {
-            this.runNextTick(() -> plugin.getChallengeManager().openCategoriesMenu(viewer.getPlayer()));
-        }));
+        this.addHandler(this.returnHandler = ItemHandler.forReturn(this, (viewer, event) -> this.runNextTick(() -> plugin.getChallengeManager().openCategoriesMenu(viewer.getPlayer()))));
 
         this.addHandler(this.rerollHandler = new ItemHandler("reroll", (viewer, event) -> {
             Player player = viewer.getPlayer();
             ChallengeCategory category = this.getLink().get(player);
             if (category == null) return;
 
-            this.runNextTick(() -> {
-                plugin.getChallengeManager().tryRerollChallenges(player, category);
-            });
+            this.runNextTick(() -> plugin.getChallengeManager().tryRerollChallenges(player, category));
         }));
 
-        this.addHandler(this.nextCategoryHandler = new ItemHandler("next_category", (viewer, event) -> {
-            this.forCategoryPages(viewer, event, 1);
-        }));
+        this.addHandler(this.nextCategoryHandler = new ItemHandler("next_category", (viewer, event) -> this.forCategoryPages(viewer, event, 1)));
 
-        this.addHandler(this.previousCategoryHandler = new ItemHandler("previous_category", (viewer, event) -> {
-            this.forCategoryPages(viewer, event, -1);
-        }));
+        this.addHandler(this.previousCategoryHandler = new ItemHandler("previous_category", (viewer, event) -> this.forCategoryPages(viewer, event, -1)));
 
         this.load();
 
-        this.getItems().forEach(menuItem -> {
-            menuItem.getOptions().addDisplayModifier((viewer, item) -> {
-                ChallengeCategory category = this.getLink().get(viewer);
-                ChallengeUser user = plugin.getUserManager().getUserData(viewer.getPlayer());
+        this.getItems().forEach(menuItem -> menuItem.getOptions().addDisplayModifier((viewer, item) -> {
+            ChallengeCategory category = this.getLink().get(viewer);
+            ChallengeUser user = plugin.getUserManager().getUserData(viewer.getPlayer());
 
-                ItemReplacer.create(item).readMeta()
-                    .replacePlaceholderAPI(viewer.getPlayer())
-                    .replace(GENERIC_REROLL_TOKENS, () -> NumberUtil.format(user.getRerollTokens(category)))
-                    .writeMeta();
-            });
-        });
+            ItemReplacer.create(item).readMeta()
+                .replacePlaceholderAPI(viewer.getPlayer())
+                .replace(GENERIC_REROLL_TOKENS, () -> NumberUtil.format(user.getRerollTokens(category)))
+                .writeMeta();
+        }));
     }
 
     private void forCategoryPages(@NotNull MenuViewer viewer, @NotNull InventoryClickEvent event, int type) {
@@ -192,9 +182,7 @@ public class ChallengesMenu extends ConfigMenu<ChallengesPlugin> implements Auto
             ItemReplacer.create(item).hideFlags().trimmed()
                 .setDisplayName(isCompleted ? this.formatCompletedName : this.formatActiveName)
                 .setLore(isCompleted ? this.formatCompletedLore : this.formatActiveLore)
-                .replace(Placeholders.CHALLENGE_REFRESH_TIME, () -> {
-                    return TimeUtil.formatDuration(refreshTime == 0 ? System.currentTimeMillis() : refreshTime);
-                })
+                .replace(Placeholders.CHALLENGE_REFRESH_TIME, () -> TimeUtil.formatDuration(refreshTime == 0 ? System.currentTimeMillis() : refreshTime))
                 .replaceLoreExact(PLACEHOLDER_OBJECTIVES, objectives)
                 .replaceLoreExact(PLACEHOLDER_CONDITIONS, conditions)
                 .replaceLoreExact(PLACEHOLDER_REWARDS, rewards)
@@ -233,9 +221,7 @@ public class ChallengesMenu extends ConfigMenu<ChallengesPlugin> implements Auto
         });
 
         ItemStack returnStack = ItemUtil.getSkinHead("be9ae7a4be65fcbaee65181389a2f7d47e2e326db59ea3eb789a92c85ea46");
-        ItemUtil.editMeta(returnStack, meta -> {
-            meta.setDisplayName(LIGHT_YELLOW.wrap("Back to Categories"));
-        });
+        ItemUtil.editMeta(returnStack, meta -> meta.setDisplayName(LIGHT_YELLOW.wrap("Back to Categories")));
 
         list.add(new MenuItem(rerollStack).setHandler(this.rerollHandler).setSlots(4));
         list.add(new MenuItem(returnStack).setHandler(this.returnHandler).setSlots(49));

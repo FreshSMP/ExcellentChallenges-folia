@@ -26,9 +26,7 @@ public class Conditions {
     public static final Condition<Boolean, Boolean> WORLD_STORM = register("world_storm",
         Boolean::parseBoolean,
         player -> player.getWorld().hasStorm(),
-        (world, parsed, oper) -> {
-            return world == parsed;
-        });
+        (world, parsed, oper) -> world == parsed);
 
     public static final Condition<LocalTime, LocalTime> SERVER_TIME = register("server_time",
         str -> LocalTime.parse(str, DateTimeFormatter.ISO_LOCAL_TIME).truncatedTo(ChronoUnit.MINUTES),
@@ -107,15 +105,13 @@ public class Conditions {
                                                     @NotNull Function<Player, Number> extractor) {
 
         Function<String, Number> parser = str -> NumberUtil.getDouble(str, 0D);
-        TriFunction<Number, Number, Operator, Boolean> tester = (eventValue, condValue, operator) -> {
-            return switch (operator) {
-                case EQUAL -> eventValue.doubleValue() == condValue.doubleValue();
-                case NOT_EQUAL -> eventValue.doubleValue() != condValue.doubleValue();
-                case GREATER -> eventValue.doubleValue() > condValue.doubleValue();
-                case SMALLER -> eventValue.doubleValue() < condValue.doubleValue();
-                case EACH -> eventValue.intValue() % condValue.intValue() == 0;
-                case EACH_NOT -> eventValue.intValue() % condValue.intValue() != 0;
-            };
+        TriFunction<Number, Number, Operator, Boolean> tester = (eventValue, condValue, operator) -> switch (operator) {
+            case EQUAL -> eventValue.doubleValue() == condValue.doubleValue();
+            case NOT_EQUAL -> eventValue.doubleValue() != condValue.doubleValue();
+            case GREATER -> eventValue.doubleValue() > condValue.doubleValue();
+            case SMALLER -> eventValue.doubleValue() < condValue.doubleValue();
+            case EACH -> eventValue.intValue() % condValue.intValue() == 0;
+            case EACH_NOT -> eventValue.intValue() % condValue.intValue() != 0;
         };
 
         return register(name, parser, extractor, tester);
@@ -139,18 +135,15 @@ public class Conditions {
 
             return array;
         };
-        TriFunction<Number, Number[], Operator, Boolean> tester = (eventValue, condValue, operator) -> {
-            return Arrays.stream(condValue).anyMatch(number -> {
-                return switch (operator) {
-                    case EQUAL -> eventValue.doubleValue() == number.doubleValue();
-                    case NOT_EQUAL -> eventValue.doubleValue() != number.doubleValue();
-                    case GREATER -> eventValue.doubleValue() > number.doubleValue();
-                    case SMALLER -> eventValue.doubleValue() < number.doubleValue();
-                    case EACH -> eventValue.intValue() % number.intValue() == 0;
-                    case EACH_NOT -> eventValue.intValue() % number.intValue() != 0;
-                };
-            });
-        };
+        TriFunction<Number, Number[], Operator, Boolean> tester = (eventValue, condValue, operator)
+                -> Arrays.stream(condValue).anyMatch(number -> switch (operator) {
+            case EQUAL -> eventValue.doubleValue() == number.doubleValue();
+            case NOT_EQUAL -> eventValue.doubleValue() != number.doubleValue();
+            case GREATER -> eventValue.doubleValue() > number.doubleValue();
+            case SMALLER -> eventValue.doubleValue() < number.doubleValue();
+            case EACH -> eventValue.intValue() % number.intValue() == 0;
+            case EACH_NOT -> eventValue.intValue() % number.intValue() != 0;
+        });
 
         return register(name, parser, extractor, tester);
     }

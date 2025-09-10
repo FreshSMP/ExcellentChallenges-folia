@@ -27,23 +27,6 @@ public class PotionTypeCreator extends AbstractCreator<PotionEffectType> {
         this.createPotionGenerators();
     }
 
-    /*@NotNull
-    @Override
-    public ItemStack getIcon(@NotNull PotionEffectType object) {
-        ItemStack stack = new ItemStack(Material.POTION);
-        ItemUtil.mapMeta(stack, meta -> {
-            if (!(meta instanceof PotionMeta potionMeta)) return;
-            potionMeta.setColor(Color.fromRGB(Rnd.get(255), Rnd.get(255), Rnd.get(255)));
-        });
-        return stack;
-    }
-
-    @NotNull
-    @Override
-    public List<String> getNames(@NotNull ActionType<?, PotionEffectType> actionType) {
-        return new ArrayList<>();
-    }*/
-
     @NotNull
     @Override
     public Set<String> getConditions(@NotNull ActionType<?, PotionEffectType> actionType) {

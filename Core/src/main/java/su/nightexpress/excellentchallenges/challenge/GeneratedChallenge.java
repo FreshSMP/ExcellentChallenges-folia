@@ -23,7 +23,6 @@ import java.util.function.UnaryOperator;
 
 public class GeneratedChallenge implements Placeholder {
 
-    //private final ExcellentChallengesPlugin plugin;
     private final ActionType<?, ?>          actionType;
     private final Generator         generator;
     private final ChallengeCategory type;
@@ -37,7 +36,6 @@ public class GeneratedChallenge implements Placeholder {
     private final PlaceholderMap placeholderMap;
 
     public GeneratedChallenge(
-        @NotNull ChallengesPlugin plugin,
         @NotNull ActionType<?, ?> actionType,
         @NotNull Generator generator,
         @NotNull ChallengeCategory type,
@@ -48,7 +46,6 @@ public class GeneratedChallenge implements Placeholder {
         @NotNull List<Reward> rewards,
         long dateCreated
     ) {
-        //this.plugin = plugin;
         this.actionType = actionType;
         this.generator = generator;
         this.type = type;
@@ -84,14 +81,12 @@ public class GeneratedChallenge implements Placeholder {
         conditionConfigs.forEach(conditionInfo -> {
             List<CompiledCondition<?, ?>> compiledConditions = new ArrayList<>();
 
-            conditionInfo.getConditionMap().forEach((sId, list) -> {
-                list.forEach(pair -> compiledConditions.add(pair.getFirst().compile(pair.getSecond())));
-            });
+            conditionInfo.getConditionMap().forEach((sId, list) -> list.forEach(pair -> compiledConditions.add(pair.getFirst().compile(pair.getSecond()))));
             conditionMap.computeIfAbsent(conditionInfo, k -> new ArrayList<>()).add(compiledConditions);
         });
 
         return new GeneratedChallenge(
-            plugin, generator.getType(), generator, type, difficulty, level,
+                generator.getType(), generator, type, difficulty, level,
             objectives, conditionMap, rewards, dateCreated
         );
     }
@@ -170,7 +165,6 @@ public class GeneratedChallenge implements Placeholder {
     public boolean addObjectiveProgress(@NotNull String id, int amount) {
         if (!this.hasObjective(id) || this.isCompleted(id) || this.isCompleted()) return false;
 
-        //UniInt progress = this.getObjectiveValue(id);
         int current = this.getObjectiveProgress(id);
         int max = this.getObjectiveRequirement(id);
 

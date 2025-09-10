@@ -103,27 +103,17 @@ public class CategoriesMenu extends ConfigMenu<ChallengesPlugin> implements Auto
                 .setDisplayName(this.categoryName)
                 .setLore(this.categoryLore)
                 .replace(GENERIC_REWARDS, () -> category.getCompletionRewards().stream().map(Reward::getName).collect(Collectors.joining(", ")))
-                .replace(GENERIC_UNFINISHED, () -> {
-                    return NumberUtil.format((int) challenges.stream().filter(Predicate.not(GeneratedChallenge::isCompleted)).count());
-                })
-                .replace(GENERIC_COMPLETED, () -> {
-                    return NumberUtil.format((int) challenges.stream().filter(GeneratedChallenge::isCompleted).count());
-                })
-                .replace(GENERIC_TOTAL, () -> {
-                    return NumberUtil.format(challenges.size());
-                })
+                .replace(GENERIC_UNFINISHED, () -> NumberUtil.format((int) challenges.stream().filter(Predicate.not(GeneratedChallenge::isCompleted)).count()))
+                .replace(GENERIC_COMPLETED, () -> NumberUtil.format((int) challenges.stream().filter(GeneratedChallenge::isCompleted).count()))
+                .replace(GENERIC_TOTAL, () -> NumberUtil.format(challenges.size()))
                 .replace(GENERIC_PROGRESS, () -> NumberUtil.format(user.getProgressPercent(category)))
                 .replace(GENERIC_REROLL_TOKENS, () -> NumberUtil.format(user.getRerollTokens(category)))
                 .replace(category.replacePlaceholders())
                 .writeMeta();
 
-
             return item;
         });
-        autoFill.setClickAction(category -> (viewer1, event) -> {
-            this.runNextTick(() -> {
-                this.plugin.getChallengeManager().openChallengesMenu(viewer1.getPlayer(), category);
-            });
-        });
+        autoFill.setClickAction(category -> (viewer1, event) ->
+                this.runNextTick(() -> this.plugin.getChallengeManager().openChallengesMenu(viewer1.getPlayer(), category)));
     }
 }

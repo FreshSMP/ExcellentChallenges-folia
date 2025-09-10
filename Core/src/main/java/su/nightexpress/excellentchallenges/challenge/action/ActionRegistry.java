@@ -103,10 +103,8 @@ public class ActionRegistry extends SimpleManager<ChallengesPlugin> {
 
         if (!actionType.loadSettings(this.plugin)) return null;
 
-        //for (EventPriority priority : EventPriority.values()) {
         WrappedEvent<E, O> event = new WrappedEvent<>(plugin, eventClass, actionType);
         plugin.getPluginManager().registerEvent(eventClass, event, priority, event, plugin, true);
-        //}
 
         ACTION_TYPE_MAP.put(actionType.getName(), actionType);
         return actionType;

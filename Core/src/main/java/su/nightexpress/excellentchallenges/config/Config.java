@@ -74,6 +74,4 @@ public class Config {
         "This option will help you to prevent challenge progress abusing via Spawn Eggs, Spawners, etc.",
         "https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/CreatureSpawnEvent.SpawnReason.html"
     );
-
-
 }

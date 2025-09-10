@@ -57,7 +57,7 @@ public class EventHelpers {
         if (nameSource.equalsIgnoreCase(nameResult)) return false;
 
         Player player = (Player) event.getWhoClicked();
-        plugin.runTask(task -> {
+        plugin.runTask(() -> {
             ItemStack result2 = anvil.getItem(2);
             if (result2 != null && !result2.getType().isAir()) return;
 
@@ -94,7 +94,7 @@ public class EventHelpers {
         if (damageSource == damageResult) return false;
 
         Player player = (Player) event.getWhoClicked();
-        plugin.runTask(task -> {
+        plugin.runTask(() -> {
             ItemStack result2 = anvil.getItem(2);
             if (result2 != null && !result2.getType().isAir()) return;
 
@@ -118,9 +118,7 @@ public class EventHelpers {
 
         processor.progressChallenge(player, event.getBlock().getType(), 1);
 
-        event.getBlocks().forEach(blockState -> {
-            processor.progressChallenge(player, blockState.getType(), 1);
-        });
+        event.getBlocks().forEach(blockState -> processor.progressChallenge(player, blockState.getType(), 1));
         return true;
     };
 
@@ -224,20 +222,18 @@ public class EventHelpers {
         ItemStack craft = new ItemStack(item);
         Material type = craft.getType();
 
-        // Идеальный вариант
-        // Считаем до, считаем после, разницу записываем в прогресс хД
         boolean numberKey = event.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD;
 
         if (event.isShiftClick() || numberKey) {
             int has = Players.countItem(player, craft);
-            plugin.runTask(task -> {
+            plugin.runTask(() -> {
                 int now = Players.countItem(player, craft);
                 int crafted = now - has;
                 processor.progressChallenge(player, type, crafted);
             });
         }
         else {
-            plugin.runTask(task -> {
+            plugin.runTask(() -> {
                 ItemStack cursor = event.getCursor();
                 if (cursor == null || cursor.getType().isAir()) return;
                 if (!cursor.isSimilar(craft) || cursor.getAmount() >= cursor.getMaxStackSize()) return;
@@ -309,7 +305,7 @@ public class EventHelpers {
         int uses = recipe.getUses();
         int userHas = Players.countItem(player, result);
 
-        plugin.runTask(task -> {
+        plugin.runTask(() -> {
             int uses2 = recipe.getUses();
             if (uses2 <= uses) return;
 
@@ -341,7 +337,7 @@ public class EventHelpers {
 
         int[] slots = new int[]{0, 1, 2};
 
-        plugin.runTask(task -> {
+        plugin.runTask(() -> {
             for (int slot : slots) {
                 ItemStack item = inventory.getItem(slot);
                 if (item == null || item.getType().isAir()) continue;
@@ -362,9 +358,7 @@ public class EventHelpers {
                     }
                 }
 
-                potionMeta.getCustomEffects().forEach(effect -> {
-                    processor.progressChallenge(player, effect.getType(), item.getAmount());
-                });
+                potionMeta.getCustomEffects().forEach(effect -> processor.progressChallenge(player, effect.getType(), item.getAmount()));
             }
         });
         return true;
@@ -379,9 +373,7 @@ public class EventHelpers {
         potionMeta.getBasePotionType().getPotionEffects().forEach(e -> types.add(e.getType()));
         potionMeta.getCustomEffects().forEach(e -> types.add(e.getType()));
 
-        types.forEach(effectType -> {
-            processor.progressChallenge(player, effectType, 1);
-        });
+        types.forEach(effectType -> processor.progressChallenge(player, effectType, 1));
         return true;
     };
 
@@ -412,18 +404,14 @@ public class EventHelpers {
         sourceEnchants.removeAll(resultEnchants);
 
         Player player = (Player) event.getWhoClicked();
-        sourceEnchants.forEach(enchantment -> {
-            processor.progressChallenge(player, enchantment, 1);
-        });
+        sourceEnchants.forEach(enchantment -> processor.progressChallenge(player, enchantment, 1));
         return true;
     };
 
     public static final EventHelper<EnchantItemEvent, Enchantment> ENCHANT_GET = (plugin, event, processor) -> {
         Player player = event.getEnchanter();
 
-        event.getEnchantsToAdd().keySet().forEach(enchantment -> {
-            processor.progressChallenge(player, enchantment, 1);
-        });
+        event.getEnchantsToAdd().keySet().forEach(enchantment -> processor.progressChallenge(player, enchantment, 1));
         return true;
     };
 }

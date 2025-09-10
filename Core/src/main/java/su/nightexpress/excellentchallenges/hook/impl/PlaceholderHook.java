@@ -38,7 +38,7 @@ public class PlaceholderHook {
         @Override
         @NotNull
         public String getAuthor() {
-            return plugin.getDescription().getAuthors().get(0);
+            return plugin.getDescription().getAuthors().getFirst();
         }
 
         @Override

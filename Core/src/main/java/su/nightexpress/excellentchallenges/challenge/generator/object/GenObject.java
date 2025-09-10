@@ -85,9 +85,7 @@ public class GenObject {
             reversed.put(fusionName.toString(), originItems);
         }
 
-        /*this.getItems()*/reversed.forEach((difId, items) -> {
-            cfg.set(path + ".Items." + difId, items);
-        });
+        reversed.forEach((difId, items) -> cfg.set(path + ".Items." + difId, items));
     }
 
     @NotNull

@@ -231,24 +231,13 @@ public class CreatorManager extends SimpleManager<ChallengesPlugin> {
             case FEET -> Conditions.FEET_ITEM;
         };
 
-        //JYML cfg = new JYML(plugin.getDataFolder() + Config.DIR_CONDITIONS, file + ".yml");
-
         for (Material material : materials) {
             String id = condition.getName() + "_" + material.name().toLowerCase();
             String raw = "[" + condition.getName() + "] " + Operator.EQUAL.getRaw() + " " + material.name();
 
             this.saveCondition(file, id, condition, raw,
                 "You must have " + LangAssets.get(material) + " equipped!");
-
-            /*ConditionConfig conditionConfig = new ConditionConfig(id, "", new ArrayList<>(), new HashMap<>());
-            conditionConfig.setName(StringUtil.capitalizeUnderscored(id));
-            conditionConfig.setDescription(Arrays.asList(
-                "You must have " + LangManager.getMaterial(material) + " equipped!"
-            ));
-            conditionConfig.getConditionMap().put(Placeholders.DEFAULT, List.of(Pair.of(condition, raw)));
-            conditionConfig.write(cfg, id);*/
         }
-        //cfg.saveChanges();
     }
 
     private void createPlayerHealthCondition(double health) {
@@ -277,16 +266,6 @@ public class CreatorManager extends SimpleManager<ChallengesPlugin> {
 
         this.saveCondition(CONDITIONS_PLAYER, id, condition, raw,
             "You must have " + NumberUtil.format(level) + " XP levels!");
-
-        /*JYML cfg = new JYML(plugin.getDataFolder() + Config.DIR_CONDITIONS, CONDITIONS_PLAYER + ".yml");
-        ConditionConfig conditionConfig = new ConditionConfig(id, id, new ArrayList<>(), new HashMap<>());
-        conditionConfig.setName(StringUtil.capitalizeUnderscored(id));
-        conditionConfig.setDescription(Arrays.asList(
-            "You must have " + NumberUtil.format(level) + " XP levels!"
-        ));
-        conditionConfig.getConditionMap().put(Placeholders.DEFAULT, List.of(Pair.of(condition, raw)));
-        conditionConfig.write(cfg, id);
-        cfg.saveChanges();*/
     }
 
     private void createMoneyReward(@NotNull String id, double money) {

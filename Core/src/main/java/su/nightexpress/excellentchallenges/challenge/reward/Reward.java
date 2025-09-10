@@ -39,7 +39,6 @@ public class Reward implements Placeholder {
         return new Reward(id, name, commands);
     }
 
-
     public void write(@NotNull FileConfig cfg, @NotNull String path) {
         cfg.set(path + ".Name", this.getName());
         cfg.set(path + ".Commands", this.getCommands());

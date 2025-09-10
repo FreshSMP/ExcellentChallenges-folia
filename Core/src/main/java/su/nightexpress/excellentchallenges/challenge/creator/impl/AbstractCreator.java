@@ -53,7 +53,6 @@ public abstract class AbstractCreator<O> {
 
         for (var entry : map.entrySet()) {
             String prefix = entry.getKey();
-            //String nameListId = actionType.getName() + NAMES_LIST_SUFFIX;
             List<O> materialGroup = entry.getValue().stream().sorted(Comparator.comparing(actionType::getObjectName)).toList();
 
             Creator<O> creator = new Creator<>(plugin, actionType, actionType.getName() + "_" + prefix);

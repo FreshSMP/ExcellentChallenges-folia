@@ -310,9 +310,7 @@ public class ChallengeManager extends AbstractManager<ChallengesPlugin> {
 
         Set<Generator> generators = new HashSet<>(this.getGenerators());
 
-        generators.removeIf(generator -> {
-            return category.getExcludedGenerators().stream().anyMatch(ex -> generator.getId().startsWith(ex));
-        });
+        generators.removeIf(generator -> category.getExcludedGenerators().stream().anyMatch(ex -> generator.getId().startsWith(ex)));
         if (generators.isEmpty()) {
             return generated;
         }
@@ -335,7 +333,6 @@ public class ChallengeManager extends AbstractManager<ChallengesPlugin> {
 
             generators.remove(generator);
             if (!generator.hasObjectives(difficulty)) {
-                //this.plugin.warn("Generator " + generator.getId() + " has no objectives for " + difficulty.getId() + " difficulty.");
                 continue;
             }
             if (category.isUniqueTypes()) generators.removeIf(g -> g.getType() == generator.getType());

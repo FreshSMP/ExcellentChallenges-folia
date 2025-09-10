@@ -168,10 +168,6 @@ public class Generator extends AbstractFileData<ChallengesPlugin> {
             conditionIds.addAll(conditionsHolder.pickItems(difficulty, level));
         }
 
-        /*GenAmountObject rewardsHolder = this.getRewardList().pickObject(difficulty);
-        if (rewardsHolder != null) {
-            rewardIds.addAll(rewardsHolder.pickItems(difficulty, level));
-        }*/
         this.rewardList.pickObjects(difficulty, rewardsAmount).forEach(holder -> {
             rewardIds.addAll(holder.pickItems(difficulty, level));
         });

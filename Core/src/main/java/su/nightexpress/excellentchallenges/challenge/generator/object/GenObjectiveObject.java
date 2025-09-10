@@ -30,7 +30,7 @@ public class GenObjectiveObject extends GenAmountObject {
 
         DifficultyValue progress = DifficultyValue.read(cfg, path + ".Progress");
 
-        return new GenObjectiveObject(id, parent.getWeight(), /*name, nameListId, icons,*/ parent.getItems(), parent.getAmount(), progress);
+        return new GenObjectiveObject(id, parent.getWeight(), parent.getItems(), parent.getAmount(), progress);
     }
 
     @Override

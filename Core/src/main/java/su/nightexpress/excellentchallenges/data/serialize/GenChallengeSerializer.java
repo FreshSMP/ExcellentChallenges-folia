@@ -30,8 +30,6 @@ public class GenChallengeSerializer implements JsonDeserializer<GeneratedChallen
     public GeneratedChallenge deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
 
-        //ChallengesPlugin plugin = ChallengesAPI.PLUGIN;
-
         String jobTypRaw = object.get("jobType").getAsString();
         ActionType<?, ?> actionType = plugin.getActionRegistry().getActionType(jobTypRaw);
         if (actionType == null) return null;
@@ -77,7 +75,6 @@ public class GenChallengeSerializer implements JsonDeserializer<GeneratedChallen
             generator, challengeCategory, difficulty, level,
             objectives, conditionConfigs, rewards, dateCreated
         );
-
     }
 
     @Override

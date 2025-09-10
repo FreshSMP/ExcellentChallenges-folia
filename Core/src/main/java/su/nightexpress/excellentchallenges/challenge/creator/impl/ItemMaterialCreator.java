@@ -30,8 +30,6 @@ public class ItemMaterialCreator extends AbstractCreator<Material> {
 
     @Override
     public void create() {
-        //this.createNamesLists(ActionTypes.ITEM_CRAFT);
-
         this.createItemConsumeGenerators();
         this.createItemCraftGenerators();
         this.createItemEnchantGenerators();
@@ -40,49 +38,6 @@ public class ItemMaterialCreator extends AbstractCreator<Material> {
         this.createItemTradeGenerators();
         this.createAnvilRenameGenerators();
     }
-
-    /*@NotNull
-    @Override
-    public ItemStack getIcon(@NotNull Material object) {
-        return new ItemStack(object);
-    }
-
-    @NotNull
-    @Override
-    public List<String> getNames(@NotNull ActionType<?, Material> actionType) {
-        List<String> names = new ArrayList<>();
-        if (actionType == ActionTypes.ITEM_CRAFT) {
-            names.add("Crafting the Perfect " + Placeholders.GENERIC_NAME + " Set");
-            names.add("Crafting the Ultimate " + Placeholders.GENERIC_NAME);
-            names.add("Crafting the " + Placeholders.GENERIC_NAME + " Legacy");
-            names.add("Crafting with Supreme " + Placeholders.GENERIC_NAME);
-            names.add("Crafting Unique " + Placeholders.GENERIC_NAME);
-            names.add("Crafting Supreme " + Placeholders.GENERIC_NAME);
-            names.add("Craft Your " + Placeholders.GENERIC_NAME + " Suit");
-            names.add("Craftsmanship in " + Placeholders.GENERIC_NAME + " Making");
-            names.add("Creating Elegant " + Placeholders.GENERIC_NAME);
-            names.add("Designing Spaces with " + Placeholders.GENERIC_NAME);
-            names.add("Architectural Wonders with " + Placeholders.GENERIC_NAME);
-            names.add("Building Marvels with " + Placeholders.GENERIC_NAME);
-            names.add("Mastering the Art of " + Placeholders.GENERIC_NAME);
-            names.add("Mastering the " + Placeholders.GENERIC_NAME + " Craft");
-            names.add("Fashioning the Perfect " + Placeholders.GENERIC_NAME);
-            names.add("Embellishing with " + Placeholders.GENERIC_NAME);
-            names.add("The Art of " + Placeholders.GENERIC_NAME + " Crafting");
-            names.add("Supreme " + Placeholders.GENERIC_NAME + " Ensemble");
-            names.add("Elegant " + Placeholders.GENERIC_NAME + " Designs");
-            names.add("The Legendary " + Placeholders.GENERIC_NAME + " Crafted");
-            names.add(Placeholders.GENERIC_NAME + " Artistry Revealed");
-            names.add(Placeholders.GENERIC_NAME + " Perfection Unveiled");
-            names.add(Placeholders.GENERIC_NAME + " Mastery in Progress");
-            names.add(Placeholders.GENERIC_NAME + " Mastery Unlocked");
-            names.add(Placeholders.GENERIC_NAME + " Mastery Unleashed");
-            names.add(Placeholders.GENERIC_NAME + " Masterpiece Unleashed");
-            names.add(Placeholders.GENERIC_NAME + " Elegance Revealed");
-            names.add(Placeholders.GENERIC_NAME + " Crafting Mastery");
-        }
-        return names;
-    }*/
 
     @NotNull
     @Override

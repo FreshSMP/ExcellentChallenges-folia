@@ -27,7 +27,7 @@ public class DataHandler extends AbstractUserDataHandler<ChallengesPlugin, Chall
     private static final SQLColumn COL_COMPLETED_CHALLENGES = SQLColumn.of("completedChallenges", ColumnType.STRING);
     private static final SQLColumn COL_COMPLETED_MILESTONES = SQLColumn.of("completedMilestones", ColumnType.STRING);
 
-    private final  Function<ResultSet, ChallengeUser> userFunction;
+    private final Function<ResultSet, ChallengeUser> userFunction;
 
     public DataHandler(@NotNull ChallengesPlugin plugin) {
         super(plugin);

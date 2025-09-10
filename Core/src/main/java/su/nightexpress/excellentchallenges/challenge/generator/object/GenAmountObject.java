@@ -41,7 +41,6 @@ public class GenAmountObject extends GenObject {
         super.write(cfg, path);
 
         this.getAmount().write(cfg, path + ".Amount");
-        //cfg.set(path + ".Allow_Duplicates", this.isAllowDuplicateSelection());
     }
 
     @NotNull

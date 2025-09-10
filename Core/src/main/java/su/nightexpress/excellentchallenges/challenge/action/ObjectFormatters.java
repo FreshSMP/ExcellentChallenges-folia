@@ -60,9 +60,6 @@ public class ObjectFormatters {
         @NotNull
         @Override
         public String getName(@NotNull PotionEffectType object) {
-            /*if (Version.isAtLeast(Version.V1_20_R3)) {
-                return object.getKey().getKey();
-            }*/
             return object.getName();
         }
 
@@ -75,9 +72,6 @@ public class ObjectFormatters {
         @Nullable
         @Override
         public PotionEffectType parseObject(@NotNull String name) {
-            /*if (Version.isAtLeast(Version.V1_20_R3)) {
-                return BukkitThing.fromRegistry(Registry.EFFECT, name);
-            }*/
             return PotionEffectType.getByName(name.toUpperCase());
         }
     };
